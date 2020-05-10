@@ -20,4 +20,9 @@ public class ServerApplication extends SpringBootServletInitializer {
         return String.format("Hello %s!", name);
     }
 
+    @GetMapping("/yo")
+    public String yo(@RequestParam(value = "name", defaultValue = "World") String name) {
+        return String.format("Yo mah man, %s!", name);
+    }
+
 }
