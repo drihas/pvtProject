@@ -4,6 +4,7 @@ public class Happening {
     private String name;
     private String description;
     private String categoryOfActivity; //TODO: borde kanske vara annat än just string. Enum?
+    //TODO: UUID som unik identifierare. Samt variabler till protected?
 
     public Happening(String name, String description, String categoryOfActivity) {
         this.name = name;
