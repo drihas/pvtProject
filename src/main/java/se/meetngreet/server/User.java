@@ -1,14 +1,16 @@
 package se.meetngreet.server;
 
+import java.util.Date;
+
 public class User {
     private String firstName;
     private String lastName;
-    private int dateOfBirth; //TODO: ändra från int till bättre anpassad variabeltyp. Borde finnas en för födelsedatum eller datum.
+    private Date dateOfBirth; //TODO: ändra från int till bättre anpassad variabeltyp. Borde finnas en för födelsedatum eller datum.
     private String userName; //TODO: Använda som unik identifierare istället för ID-nummer eller e-post? EJ i klassdiagram.
     private String userType; //TODO: Omdöpt från klassdiagram. Ersätta egen klass bara för en userType? Enum istället för string? Känns onödigt med en klass eftersom det är antingenn new resident eller local. Enum istället för boolsk eftersom man kanske vill utöka längre fram.
 
     // Constructor
-    public User(String firstName, String lastName, int dateOfBirth, String userName) {
+    public User(String firstName, String lastName, Date dateOfBirth, String userName) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -24,7 +26,7 @@ public class User {
         return lastName;
     }
 
-    public int getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
@@ -41,7 +43,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public void setDateOfBirth(int dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
