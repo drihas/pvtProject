@@ -1,13 +1,16 @@
 package se.meetngreet.server;
 
 import java.util.Date;
+import java.util.UUID;
 
 public class User {
+    private UUID userID;
     private String firstName;
     private String lastName;
     private Date dateOfBirth; //TODO: ändra från int till bättre anpassad variabeltyp. Borde finnas en för födelsedatum eller datum.
-    private String userName; //TODO: Använda som unik identifierare istället för ID-nummer eller e-post? EJ i klassdiagram.
+    private String userName; //TODO: Använda som unik identifierare istället för ID-nummer eller e-post? EJ i klassdiagram. Kanske ha en UUID ändå.
     private String userType; //TODO: Omdöpt från klassdiagram. Ersätta egen klass bara för en userType? Enum istället för string? Känns onödigt med en klass eftersom det är antingenn new resident eller local. Enum istället för boolsk eftersom man kanske vill utöka längre fram.
+    //TODO: Kan gender läggas som en variabel istället för en egen klass för att minska på databasen?
 
     // Constructor
     public User(String firstName, String lastName, Date dateOfBirth, String userName) {
@@ -34,6 +37,14 @@ public class User {
         return userName;
     }
 
+    public UUID getUserID() {
+        return userID;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
     //Setters:
     public void setFirstName(String firstName) {
         this.firstName = firstName;
@@ -49,6 +60,10 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
     }
 
     // TODO
