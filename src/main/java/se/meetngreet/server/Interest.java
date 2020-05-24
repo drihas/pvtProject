@@ -2,10 +2,9 @@ package se.meetngreet.server;
 
 public class Interest {
 
-    //TODO: Denna klass var inte så specad i diagrammet. Vad behövs för innehåll?
-
     private String name;
 
+    // Constructor.
     public Interest(String name) {
         this.name = name;
     }

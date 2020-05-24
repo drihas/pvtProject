@@ -4,66 +4,121 @@ import java.util.Date;
 import java.util.UUID;
 
 public class User {
-    private UUID userID;
+
+    enum Gender {
+        MALE, FEMALE, NONBINARY
+    }
+    enum RelationshipStatus {
+        SINGLE, INRELATIONSHIP, MARRIED, PREFEREDNOTTOSAY
+    }
+    enum Occupation {
+        WORKING, STUDYING, UNEMPLOYED, OTHER
+    }
+
+    private int userID;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth; //TODO: ändra från int till bättre anpassad variabeltyp. Borde finnas en för födelsedatum eller datum.
-    private String userName; //TODO: Använda som unik identifierare istället för ID-nummer eller e-post? EJ i klassdiagram. Kanske ha en UUID ändå.
-    private String userType; //TODO: Omdöpt från klassdiagram. Ersätta egen klass bara för en userType? Enum istället för string? Känns onödigt med en klass eftersom det är antingenn new resident eller local. Enum istället för boolsk eftersom man kanske vill utöka längre fram.
-    //TODO: Kan gender läggas som en variabel istället för en egen klass för att minska på databasen?
+    private Date dateOfBirth;
+    private Gender gender;
+    private String email;
+    private RelationshipStatus relationshipStatus;
+    private Occupation occupation;
+    private String placeOfBirth;
+    private String placeOfResidence;
+    private String description;
+
+
 
     // Constructor
-    public User(String firstName, String lastName, Date dateOfBirth, String userName) {
+    public User(String firstName, String lastName, Date dateOfBirth) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        this.userName = userName;
     }
 
-    //Getters:
+    //Getters and setters:
+    public int getUserID() {
+        return userID;
+    }
+
     public String getFirstName() {
         return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
         return lastName;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public UUID getUserID() {
-        return userID;
-    }
-
-    public String getUserType() {
-        return userType;
-    }
-
-    //Setters:
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public Gender getGender() {
+        return gender;
     }
 
-    public void setUserType(String userType) {
-        this.userType = userType;
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public RelationshipStatus getRelationshipStatus() {
+        return relationshipStatus;
+    }
+
+    public void setRelationshipStatus(RelationshipStatus relationshipStatus) {
+        this.relationshipStatus = relationshipStatus;
+    }
+
+    public Occupation getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(Occupation occupation) {
+        this.occupation = occupation;
+    }
+
+    public String getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public void setPlaceOfBirth(String placeOfBirth) {
+        this.placeOfBirth = placeOfBirth;
+    }
+
+    public String getPlaceOfResidence() {
+        return placeOfResidence;
+    }
+
+    public void setPlaceOfResidence(String placeOfResidence) {
+        this.placeOfResidence = placeOfResidence;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     // TODO
@@ -91,15 +146,4 @@ public class User {
     public void viewProfile(){
         //TODO
     }
-
-    public void viewBadger(){
-        //TODO
-    }
-
-    public void addProfilePicture(){
-        //TODO
-    }
-
-
-
 }
