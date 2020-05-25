@@ -25,6 +25,7 @@ public class Activity {
     private String coordinates;
 
 
+    // Constructor. TODO: uppdatera denna!
     public Activity(String name, String description, String categoryOfActivity) {
         this.name = name;
         this.description = description;
