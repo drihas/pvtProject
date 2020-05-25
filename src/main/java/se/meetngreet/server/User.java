@@ -43,10 +43,10 @@ public class User {
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
         //this.dateOfBirth = dateOfBirth;
-        this.gender = Gender.valueOf(gender);
+        this.gender = Gender.valueOf(gender.toUpperCase());
         this.email = email;
-        this.relationshipStatus = RelationshipStatus.valueOf(relationshipStatus);
-        this.occupation = Occupation.valueOf(occupation);
+        this.relationshipStatus = RelationshipStatus.valueOf(relationshipStatus.toUpperCase());
+        this.occupation = Occupation.valueOf(occupation.toUpperCase());
         this.placeOfBirth = placeOfBirth;
         this.placeOfResidence = placeOfResidence;
         this.description = description;
@@ -89,8 +89,8 @@ public class User {
         return gender;
     }
 
-    public void setGender(Gender gender) {
-        this.gender = gender;
+    public void setGender(String gender) {
+        this.gender = Gender.valueOf(gender);
     }
 
     public String getEmail() {
@@ -105,16 +105,16 @@ public class User {
         return relationshipStatus;
     }
 
-    public void setRelationshipStatus(RelationshipStatus relationshipStatus) {
-        this.relationshipStatus = relationshipStatus;
+    public void setRelationshipStatus(String relationshipStatus) {
+        this.relationshipStatus = RelationshipStatus.valueOf(relationshipStatus);
     }
 
     public Occupation getOccupation() {
         return occupation;
     }
 
-    public void setOccupation(Occupation occupation) {
-        this.occupation = occupation;
+    public void setOccupation(String occupation) {
+        this.occupation = Occupation.valueOf(occupation);
     }
 
     public String getPlaceOfBirth() {

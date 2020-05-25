@@ -17,16 +17,32 @@ public class ServerApplication extends SpringBootServletInitializer {
         SpringApplication.run(ServerApplication.class, args);
     }
 
-    @PostMapping
+    @PutMapping("/user/add")
     public void addUser(@RequestBody User user){
         //TODO: service.
         //users.add(new User(user.getFirstName(), user.getLastName(), user.getDateOfBirth()));
         UserService.newUser(user);
     }
 
-    @GetMapping("/user")
+    @GetMapping("/user/getall")
     public ArrayList<User> getAll(){
             return UserService.getAllUsers();
+    }
+
+    @PostMapping("/user/update2")
+    public void updateUser(@RequestParam(value = "id", defaultValue = "0") int id, @RequestBody Payload payload) {
+        if (id != 0) {
+            //UserService.updateUser(id, payload);
+        }
+        //TODO send bad request.
+    }
+
+    @PutMapping("/user/update")
+    public void updateUser(@RequestBody Payload payload) {
+
+        UserService.updateUser(payload);
+
+        //TODO send bad request.
     }
 
 
