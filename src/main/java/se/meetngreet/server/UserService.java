@@ -32,7 +32,6 @@ public class UserService {
 
         // Add new user to DB.
         // Establish database connection.
-        registerDriver(new com.mysql.jdbc.Driver ());
         Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
 
 
