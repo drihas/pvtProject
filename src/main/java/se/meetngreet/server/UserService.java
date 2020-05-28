@@ -19,7 +19,7 @@ public class UserService {
     private static ArrayList<User> users = new ArrayList<>();
     private HashSet<User> users2 = new HashSet<>();
 
-    private static String databaseUrl = "jdbc:mysql://mysql.dsv.su.se/malj8519";
+    private static String databaseUrl = "jdbc:mysql://mysql.dsv.su.se:3306/malj8519";
     private static String databaseUsername = "malj8519";
     private static String databasePassword = "gie1Noa7eam8";
 
