@@ -50,7 +50,7 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <version>runtime</version>
+            <version>8.0.20</version>
         </dependency>
     </dependencies>
 
