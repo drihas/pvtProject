@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
-import java.util.UUID;
 
 public class User {
 
@@ -51,7 +50,7 @@ public class User {
         this.placeOfResidence = placeOfResidence;
         this.description = description;
         Random random = new Random();
-        this.userID = random.nextInt(10000);
+        this.userID = random.nextInt(1000 * random.nextInt(1000));
 
 
     }
@@ -59,6 +58,10 @@ public class User {
     //Getters and setters:
     public int getUserID() {
         return userID;
+    }
+
+    public void setUserID(int userID) {
+        this.userID = userID;
     }
 
     public String getFirstName() {

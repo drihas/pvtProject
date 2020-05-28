@@ -2,16 +2,16 @@ package se.meetngreet.server;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Payload {
+public class UserPayload {
 
-    private int id;
+    //private int id;
     private String type;
     private String data;
 
-    public Payload(@JsonProperty("type") String type, @JsonProperty("data") String data, @JsonProperty("id") int id){
+    public UserPayload(@JsonProperty("type") String type, @JsonProperty("data") String data, @JsonProperty("id") int id){
         this.type = type;
         this.data = data;
-        this.id = id;
+        //this.id = id;
     }
 
     public String getType() {
@@ -22,7 +22,7 @@ public class Payload {
         return data;
     }
 
-    public int getId() {
+    /*public int getId() {
         return id;
-    }
+    }*/
 }

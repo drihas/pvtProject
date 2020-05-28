@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @SpringBootApplication
@@ -18,32 +19,45 @@ public class ServerApplication extends SpringBootServletInitializer {
     }
 
     @PutMapping("/user/add")
-    public void addUser(@RequestBody User user){
+    public void addUser(@RequestBody User user) throws SQLException {
         //TODO: service.
         //users.add(new User(user.getFirstName(), user.getLastName(), user.getDateOfBirth()));
         UserService.newUser(user);
+        //Todo: Ta emot interest. Kommaseparerad ista i Json verkar enkelt nog. Splitta, lägg in i array och iterera in i DB tillsammans med ID.
     }
 
-    @GetMapping("/user/getall")
-    public ArrayList<User> getAll(){
-            return UserService.getAllUsers();
-    }
-
-    @PostMapping("/user/update2")
-    public void updateUser(@RequestParam(value = "id", defaultValue = "0") int id, @RequestBody Payload payload) {
+    /*@PostMapping("/user/update2")
+    public void updateUser(@RequestParam(value = "id", defaultValue = "0") int id, @RequestBody UserPayload payload) {
         if (id != 0) {
             //UserService.updateUser(id, payload);
         }
         //TODO send bad request.
-    }
+    }*/
 
     @PutMapping("/user/update")
-    public void updateUser(@RequestBody Payload payload) {
+    public void updateUser(@RequestParam(value = "id", defaultValue = "0") int userID, @RequestBody UserPayload payload) throws SQLException {
 
-        UserService.updateUser(payload);
+        UserService.updateUser(userID, payload);
 
         //TODO send bad request.
     }
+
+    @GetMapping("/user/get")
+    public User getUser(@RequestParam(value = "id", defaultValue = "0") int userID) throws SQLException {
+        return UserService.getUser(userID);
+    }
+
+    @RequestMapping(value = "/user/delete", method = RequestMethod.DELETE)
+    public @ResponseBody void deleteUser(@RequestParam(value = "id", defaultValue = "0") int userID) throws SQLException {
+        UserService.deleteUser(userID);
+    }
+
+    @GetMapping("/user/getall")
+    public ArrayList<User> getAll() throws SQLException {
+        return UserService.getAllUsers();
+    }
+
+
 
 
     @GetMapping("/hello")
