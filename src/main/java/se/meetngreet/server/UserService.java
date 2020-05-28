@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 
-import static java.sql.DriverManager.getConnection;
+import static java.sql.DriverManager.*;
 import static java.sql.DriverManager.registerDriver;
 
 @Service
