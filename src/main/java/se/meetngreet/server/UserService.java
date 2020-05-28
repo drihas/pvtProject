@@ -24,6 +24,7 @@ public class UserService {
     private static String databaseUsername = "malj8519";
     private static String databasePassword = "gie1Noa7eam8";
 
+    // Users
     public static void newUser(User user) throws SQLException {
         //Date date = new Date(year, month, day);
         users.add(new User(user.getFirstName(), user.getLastName(), user.getDateOfBirth(),
@@ -52,11 +53,9 @@ public class UserService {
         pStatement.setString(10, user.getPlaceOfResidence());
         pStatement.setString(11, user.getDescription());
 
-        // Executes the query and saves response in resultSet.
-        ResultSet resultSet = pStatement.executeQuery();
+        // Executes the query and saves number of rows effected in resultSet.
+        int resultSet = pStatement.executeUpdate();
 
-        while (resultSet.next())
-            System.out.println(resultSet.getString(0));
         // Closes connection.
         pStatement.close();
         connection.close();
@@ -114,8 +113,8 @@ public class UserService {
         // Parameters replacing ? in query string.
         pStatement.setInt(1, userId);
 
-        // Executes the query and saves response in resultSet.
-        ResultSet resultSet = pStatement.executeQuery();
+        // Executes the query and saves number of rows effected in resultSet.
+        int resultSet = pStatement.executeUpdate();
 
 
         // Closes connection.
@@ -166,7 +165,7 @@ public class UserService {
         return user;
     }
 
-    //TODO: tas bort eller ändras. Inte så nödvändig för appen.
+    //TODO: tas bort? Inte så nödvändig för appen. Bra under utveckling dock.
     public static ArrayList<User> getAllUsers() throws SQLException {
         ArrayList<User> allUsers = new ArrayList<>();
 
@@ -183,8 +182,24 @@ public class UserService {
         // Executes the query and saves response in resultSet.
         ResultSet resultSet = pStatement.executeQuery();
 
+        int userID = 0;
+        String firstName = null, lastName = null, dateOfBirh = null, gender = null, email = null, relationshipStatus = null, occupation = null, placeOfBirth = null, placeOfResidence = null, description = null;
+
         while (resultSet.next()) {
-            //allUsers.add();
+            userID = resultSet.getInt("user_id");
+            firstName = resultSet.getString("first_name");
+            lastName = resultSet.getString("last_name");
+            dateOfBirh = resultSet.getString("date_of_birth");
+            gender = resultSet.getString("gender");
+            email = resultSet.getString("email");
+            relationshipStatus = resultSet.getString("relationship_status");
+            occupation = resultSet.getString("occupation");
+            placeOfBirth = resultSet.getString("place_of_birth");
+            placeOfResidence = resultSet.getString("place_of_residence");
+            description = resultSet.getString("description");
+            User user = new User(firstName, lastName, dateOfBirh, gender, email, relationshipStatus, occupation, placeOfBirth, placeOfResidence, description);
+            user.setUserID(userID);
+            allUsers.add(user);
         }
         // Closes connection.
 
@@ -192,13 +207,90 @@ public class UserService {
         connection.close();
 
 
-        return users;
+        return allUsers;
     }
-
 
     // Interests
-    public static void addInterest() {
+    public static void addInterest(int userID, Interest interest) throws SQLException {
+        // ArrayList to add temporary values to.
+        ArrayList<String> inDB = new ArrayList<>();
 
+        // Establish database connection.
+        Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
+        // Set query string. ? is replaces by User parameters.
+        String query = "SELECT * FROM interest;";
+        String queryAdd = "INSERT INTO interest (name) VALUES (?);";
+        String queryConnect = "INSERT INTO has_interest (user_id, name) VALUES (?, ?);";
+
+        // Prepared statement from query String.
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        PreparedStatement pStatementAdd = connection.prepareStatement(queryAdd);
+        PreparedStatement pStatementConnect = connection.prepareStatement(queryConnect);
+
+        // Parameters replacing ? in query string.
+        pStatementAdd.setString(1, interest.getName());
+        pStatementConnect.setInt(1, userID);
+        pStatementConnect.setString(2, interest.getName());
+
+        // Executes the query and saves response in resultSet.
+        ResultSet resultSet = pStatement.executeQuery();
+
+        // Adds result from query in inDB and adds name if it exists.
+        while (resultSet.next()) {
+            inDB.add(resultSet.getString("name"));
+        }
+        // If interest doesn't exist in inDB, add interest.
+        if (!inDB.contains(interest.getName()))   //!inDB.contains(interest)
+            pStatementAdd.executeUpdate();
+
+        // Add userID and interest name to table has_interest to connect user with interest.
+        pStatementConnect.executeUpdate();
+
+        // Closes connection.
+        pStatement.close();
+        connection.close();
     }
 
+    public static String getInterest(int userID) throws SQLException {
+        ArrayList<String> interests = new ArrayList<>();
+
+        // Establish database connection.
+        Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
+        // Set query string. ? is replaces by User parameters.
+        String query = "SELECT name FROM has_interest WHERE user_id=?;";
+
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        pStatement.setInt(1, userID);
+        ResultSet resultSet = pStatement.executeQuery();
+
+        pStatement.close();
+        connection.close();
+
+        while (resultSet.next())
+            interests.add(resultSet.getString("name"));
+
+        return interests.toString();
+    }
+
+    public static void deleteInterest(int userID, Interest interest) throws SQLException {
+        // Establish database connection.
+        Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
+
+        // Set query string. ? is replaces by User parameters.
+        String query = "DELETE FROM has_interest WHERE user_id=? AND name=?;";
+        // Prepared statement from query String.
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        // Parameters replacing ? in query string.
+        pStatement.setInt(1, userID);
+        pStatement.setString(2, interest.getName());
+
+        // Executes the query and saves number of rows effected in resultSet.
+        pStatement.executeUpdate();
+
+
+        // Closes connection.
+        pStatement.close();
+        connection.close();
+
+    }
 }

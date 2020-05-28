@@ -57,6 +57,20 @@ public class ServerApplication extends SpringBootServletInitializer {
         return UserService.getAllUsers();
     }
 
+    @PutMapping("/interest/add")
+    public void addInterest(@RequestParam(value = "id", defaultValue = "0") int userID, @RequestBody Interest interest) throws SQLException {
+        UserService.addInterest(userID, interest);
+    }
+
+    @GetMapping("/interest/get")
+    public String getInterest(@RequestParam(value = "id", defaultValue = "0") int userID) throws SQLException {
+        return UserService.getInterest(userID);
+    }
+
+    @DeleteMapping("/interest/add")
+    public void deleteInterest(@RequestParam(value = "id", defaultValue = "0") int userID, @RequestBody Interest interest) throws SQLException {
+        UserService.deleteInterest(userID, interest);
+    }
 
 
 

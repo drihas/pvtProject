@@ -1,11 +1,13 @@
 package se.meetngreet.server;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Interest {
 
     private String name;
 
     // Constructor.
-    public Interest(String name) {
+    public Interest(@JsonProperty("name") String name) {
         this.name = name;
     }
 
