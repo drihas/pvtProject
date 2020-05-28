@@ -95,7 +95,7 @@ public class UserService {
         pStatement.setInt(2, userID);
 
         // Executes the query and saves response in resultSet.
-        ResultSet resultSet = pStatement.executeQuery();
+        int resultSet = pStatement.executeUpdate();
 
 
         // Closes connection.
@@ -195,5 +195,10 @@ public class UserService {
         return users;
     }
 
+
+    // Interests
+    public static void addInterest() {
+
+    }
 
 }
