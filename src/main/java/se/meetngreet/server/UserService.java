@@ -12,6 +12,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 import static java.sql.DriverManager.getConnection;
+import static java.sql.DriverManager.registerDriver;
 
 @Service
 public class UserService {
@@ -31,7 +32,9 @@ public class UserService {
 
         // Add new user to DB.
         // Establish database connection.
+        registerDriver(new com.mysql.jdbc.Driver ());
         Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
+
 
         // Set query string. ? is replaces by User parameters.
         String query = "INSERT INTO user (user_id, first_name, last_name, date_of_birth, gender, email, relationship_status, occupation, place_of_birth, place_of_residence, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
