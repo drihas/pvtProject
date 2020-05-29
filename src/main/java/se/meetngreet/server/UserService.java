@@ -17,8 +17,8 @@ import static java.sql.DriverManager.registerDriver;
 @Service
 public class UserService {
 
-    private static ArrayList<User> users = new ArrayList<>();
-    private HashSet<User> users2 = new HashSet<>();
+    //private static ArrayList<User> users = new ArrayList<>();
+    //private HashSet<User> users2 = new HashSet<>();
 
     private static String databaseUrl = "jdbc:mysql://mysql.dsv.su.se:3306/malj8519";
     private static String databaseUsername = "malj8519";
@@ -27,10 +27,10 @@ public class UserService {
     // Users
     public static void newUser(User user) throws SQLException {
         //Date date = new Date(year, month, day);
-        users.add(new User(user.getFirstName(), user.getLastName(), user.getDateOfBirth(),
+        /*users.add(new User(user.getFirstName(), user.getLastName(), user.getDateOfBirth(),
                 user.getGender().toString(), user.getEmail(), user.getRelationshipStatus().toString(), user.getOccupation().toString(),
                 user.getPlaceOfBirth(), user.getPlaceOfResidence(), user.getDescription()));
-
+*/
         // Add new user to DB.
         // Establish database connection.
         Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
@@ -138,7 +138,7 @@ public class UserService {
         // Executes the query and saves response in resultSet.
         ResultSet resultSet = pStatement.executeQuery();
 
-        int userID = 0;
+        /*int userID = 0;
         String firstName = null, lastName = null, dateOfBirh = null, gender = null, email = null, relationshipStatus = null, occupation = null, placeOfBirth = null, placeOfResidence = null, description = null;
         while (resultSet.next()) {
             userID = resultSet.getInt("user_id");
@@ -152,16 +152,18 @@ public class UserService {
             placeOfBirth = resultSet.getString("place_of_birth");
             placeOfResidence = resultSet.getString("place_of_residence");
             description = resultSet.getString("description");
-        }
+        }*/
         // Closes connection.
         pStatement.close();
         connection.close();
 
         // Recreate user from database data.
-        User user = new User(firstName, lastName, dateOfBirh, gender, email, relationshipStatus, occupation, placeOfBirth, placeOfResidence, description);
-        user.setUserID(userID);
+        /*User user = new User(firstName, lastName, dateOfBirh, gender, email, relationshipStatus, occupation, placeOfBirth, placeOfResidence, description);
+        user.setUserID(userID);*/
 
         // Returns the recreated user.
+        User user = reassembleUser(resultSet);
+
         return user;
     }
 
@@ -208,6 +210,29 @@ public class UserService {
 
 
         return allUsers;
+    }
+
+    public static User reassembleUser(ResultSet resultSet) throws SQLException {
+
+        int userID = 0;
+        String firstName = null, lastName = null, dateOfBirh = null, gender = null, email = null, relationshipStatus = null, occupation = null, placeOfBirth = null, placeOfResidence = null, description = null;
+        while (resultSet.next()) {
+            userID = resultSet.getInt("user_id");
+            firstName = resultSet.getString("first_name");
+            lastName = resultSet.getString("last_name");
+            dateOfBirh = resultSet.getString("date_of_birth");
+            gender = resultSet.getString("gender");
+            email = resultSet.getString("email");
+            relationshipStatus = resultSet.getString("relationship_status");
+            occupation = resultSet.getString("occupation");
+            placeOfBirth = resultSet.getString("place_of_birth");
+            placeOfResidence = resultSet.getString("place_of_residence");
+            description = resultSet.getString("description");
+        }
+        User user = new User(firstName, lastName, dateOfBirh, gender, email, relationshipStatus, occupation, placeOfBirth, placeOfResidence, description);
+        user.setUserID(userID);
+
+        return user;
     }
 
     // Interests
