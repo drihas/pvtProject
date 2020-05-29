@@ -167,6 +167,27 @@ public class UserService {
         return user;
     }
 
+    public static int getUserId(String email) throws SQLException {
+        int userID = 0;
+        // Establish database connection.
+        Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
+        // Set query string. ? is replaces by User parameters.
+        String query = "SELECT user_id FROM user WHERE email=?;";
+        // Prepared statement from query String.
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        // Parameters replacing ? in query string.
+        pStatement.setString(1, email);
+        // Executes the query and saves response in resultSet.
+        ResultSet resultSet = pStatement.executeQuery();
+        pStatement.close();
+        connection.close();
+
+        while (resultSet.next())
+            userID = resultSet.getInt("user_id");
+
+        return userID;
+    }
+
     //TODO: tas bort? Inte så nödvändig för appen. Bra under utveckling dock.
     public static ArrayList<User> getAllUsers() throws SQLException {
         ArrayList<User> allUsers = new ArrayList<>();

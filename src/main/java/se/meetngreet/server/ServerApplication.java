@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.file.attribute.AttributeView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -18,6 +19,7 @@ public class ServerApplication extends SpringBootServletInitializer {
         SpringApplication.run(ServerApplication.class, args);
     }
 
+    // User
     @PutMapping("/user/add")
     public void addUser(@RequestBody User user) throws SQLException {
         //TODO: service.
@@ -47,6 +49,11 @@ public class ServerApplication extends SpringBootServletInitializer {
         return UserService.getUser(userID);
     }
 
+    @GetMapping("/user/get/id")
+    public int getUserId(@RequestParam(value = "email", defaultValue = "0") String email) throws SQLException {
+        return UserService.getUserId(email);
+    }
+
     @RequestMapping(value = "/user/delete", method = RequestMethod.DELETE)
     public @ResponseBody void deleteUser(@RequestParam(value = "id", defaultValue = "0") int userID) throws SQLException {
         UserService.deleteUser(userID);
@@ -71,6 +78,37 @@ public class ServerApplication extends SpringBootServletInitializer {
     public void deleteInterest(@RequestParam(value = "id", defaultValue = "0") int userID, @RequestBody Interest interest) throws SQLException {
         UserService.deleteInterest(userID, interest);
     }
+
+    //Activity
+    @PutMapping("/activity/add")
+    public void addActivity(@RequestBody Activity activity) throws SQLException {
+        ActivityService.addActivity(activity);
+    }
+
+    @PutMapping("/activity/update")
+    public void updateActivity(@RequestParam(value = "id", defaultValue = "0") int activityID, @RequestBody ActivityPayload payload) throws SQLException {
+        ActivityService.updateActivity(activityID, payload);
+    }
+
+    @RequestMapping(value = "/activity/delete", method = RequestMethod.DELETE)
+    public @ResponseBody void deleteActivity (@RequestParam(value = "id", defaultValue = "0") int activityID) throws SQLException {
+        ActivityService.deleteActivity(activityID);
+    }
+
+    @GetMapping("/activity/get")
+    public Activity getACtivity(@RequestParam(value = "id", defaultValue = "0") int activityID) throws SQLException {
+        return ActivityService.getActivity(activityID);
+    }
+
+    @GetMapping("/activity/getall")
+    public ArrayList<Activity> getAllActivities() throws SQLException {
+        return ActivityService.getAllActivities();
+    }
+
+    /*@PutMapping("/activity/participate")
+    public void participate(@RequestParam(value = "id", defaultValue = "0") int userID, @RequestBody Interest interest) throws SQLException {
+        UserService.addInterest(userID, interest);
+    }*/
 
 
 

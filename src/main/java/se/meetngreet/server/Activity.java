@@ -1,11 +1,11 @@
 package se.meetngreet.server;
 
-import java.sql.Timestamp;
+import java.util.Random;
 
 public class Activity {
 
     enum Gender {
-        MALE, FEMALE, NONBINARY
+        MALE, FEMALE, NONBINARY, ALL
     }
 
     enum Activities {
@@ -14,7 +14,7 @@ public class Activity {
 
     private int activityId;
     private String name;
-    private Timestamp time;
+    private String time;
     private String description;
     private Activities categoryOfActivity;
     private int minAge;
@@ -25,11 +25,20 @@ public class Activity {
     private String coordinates;
 
 
-    // Constructor. TODO: uppdatera denna!
-    public Activity(String name, String description, String categoryOfActivity) {
+    // Constructor.
+    public Activity(String name, String time, String description, String categoryOfActivity, int minAge, int maxAge, int groupSize, String allowedGender, String location, String coordinates) {
         this.name = name;
+        this.time = time;
         this.description = description;
-
+        this.categoryOfActivity = Activities.valueOf(categoryOfActivity);
+        this.minAge = minAge;
+        this.maxAge = maxAge;
+        this.groupSize = groupSize;
+        this.allowedGender = Gender.valueOf(allowedGender);
+        this.location = location;
+        this.coordinates = coordinates;
+        Random random = new Random();
+        this.activityId = random.nextInt(1000 * random.nextInt(1000));
     }
 
     // Getters and setters.
@@ -37,6 +46,10 @@ public class Activity {
 
     public int getActivityId() {
         return activityId;
+    }
+
+    public void setActivityId(int activityId) {
+        this.activityId = activityId;
     }
 
     public String getName() {
@@ -47,11 +60,11 @@ public class Activity {
         this.name = name;
     }
 
-    public Timestamp getTime() {
+    public String getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(String time) {
         this.time = time;
     }
 
