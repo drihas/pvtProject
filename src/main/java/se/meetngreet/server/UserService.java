@@ -153,6 +153,10 @@ public class UserService {
             placeOfResidence = resultSet.getString("place_of_residence");
             description = resultSet.getString("description");
         }*/
+
+        User user = reassembleUser(resultSet);
+
+
         // Closes connection.
         pStatement.close();
         connection.close();
@@ -162,7 +166,7 @@ public class UserService {
         user.setUserID(userID);*/
 
         // Returns the recreated user.
-        User user = reassembleUser(resultSet);
+
 
         return user;
     }
