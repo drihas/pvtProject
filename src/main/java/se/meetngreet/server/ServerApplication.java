@@ -64,6 +64,11 @@ public class ServerApplication extends SpringBootServletInitializer {
         return UserService.getAllUsers();
     }
 
+    @GetMapping("/user/activities/get")
+    public ArrayList<Integer> getActivities(@RequestParam(value = "id", defaultValue = "0") int userID) throws SQLException {
+        return UserService.getActivities(userID);
+    }
+
     @PutMapping("/interest/add")
     public void addInterest(@RequestParam(value = "id", defaultValue = "0") int userID, @RequestBody Interest interest) throws SQLException {
         UserService.addInterest(userID, interest);
@@ -105,21 +110,24 @@ public class ServerApplication extends SpringBootServletInitializer {
         return ActivityService.getAllActivities();
     }
 
-    /*@PutMapping("/activity/participate")
-    public void participate(@RequestParam(value = "id", defaultValue = "0") int userID, @RequestBody Interest interest) throws SQLException {
-        UserService.addInterest(userID, interest);
-    }*/
+    @PutMapping("/activity/participate")
+    public void participate(@RequestParam(value = "user", defaultValue = "0") int userID, @RequestParam(value = "activity", defaultValue = "0") int activity_id) throws SQLException {
+        ActivityService.participateActivity(userID, activity_id);
+    }
+
+    @DeleteMapping("/activity/unparticipate")
+    public void unParticipate(@RequestParam(value = "user", defaultValue = "0") int userID, @RequestParam(value = "activity", defaultValue = "0") int activity_id) throws SQLException {
+        ActivityService.unParticipateActivity(userID, activity_id);
+    }
+
+    @GetMapping("/activity/participants/get")
+    public ArrayList<Integer> getParticipants(@RequestParam(value = "id", defaultValue = "0") int activityID) throws SQLException {
+        return ActivityService.getParticipants(activityID);
+    }
 
 
-
-    @GetMapping("/hello")
+    @GetMapping("/")
     public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
         return String.format("Hello %s!", name);
     }
-
-    @GetMapping("/yo")
-    public String yo(@RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Yo mah man, %s!", name);
-    }
-
 }

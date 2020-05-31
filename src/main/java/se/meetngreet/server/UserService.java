@@ -56,9 +56,17 @@ public class UserService {
         // Executes the query and saves number of rows effected in resultSet.
         int resultSet = pStatement.executeUpdate();
 
+        // Adds interests.
+
+
         // Closes connection.
         pStatement.close();
         connection.close();
+
+        String[] list = user.getInterests().split(",");
+        for (String item : list) {
+            UserService.addInterest(user.getUserID(), new Interest(item));
+        }
 
     }
 
@@ -183,16 +191,16 @@ public class UserService {
         pStatement.setString(1, email);
         // Executes the query and saves response in resultSet.
         ResultSet resultSet = pStatement.executeQuery();
+
+        while (resultSet.next()) {
+            userID = resultSet.getInt("user_id");
+        }
+
         pStatement.close();
         connection.close();
-
-        while (resultSet.next())
-            userID = resultSet.getInt("user_id");
-
         return userID;
     }
 
-    //TODO: tas bort? Inte så nödvändig för appen. Bra under utveckling dock.
     public static ArrayList<User> getAllUsers() throws SQLException {
         ArrayList<User> allUsers = new ArrayList<>();
 
@@ -224,7 +232,7 @@ public class UserService {
             placeOfBirth = resultSet.getString("place_of_birth");
             placeOfResidence = resultSet.getString("place_of_residence");
             description = resultSet.getString("description");
-            User user = new User(firstName, lastName, dateOfBirh, gender, email, relationshipStatus, occupation, placeOfBirth, placeOfResidence, description);
+            User user = new User(firstName, lastName, dateOfBirh, gender, email, relationshipStatus, occupation, placeOfBirth, placeOfResidence, description, "");
             user.setUserID(userID);
             allUsers.add(user);
         }
@@ -254,7 +262,7 @@ public class UserService {
             placeOfResidence = resultSet.getString("place_of_residence");
             description = resultSet.getString("description");
         }
-        User user = new User(firstName, lastName, dateOfBirh, gender, email, relationshipStatus, occupation, placeOfBirth, placeOfResidence, description);
+        User user = new User(firstName, lastName, dateOfBirh, gender, email, relationshipStatus, occupation, placeOfBirth, placeOfResidence, description, "");
         user.setUserID(userID);
 
         return user;
@@ -313,12 +321,13 @@ public class UserService {
         pStatement.setInt(1, userID);
         ResultSet resultSet = pStatement.executeQuery();
 
+
+        while (resultSet.next()) {
+            interests.add(resultSet.getString("name"));
+        }
+
         pStatement.close();
         connection.close();
-
-        while (resultSet.next())
-            interests.add(resultSet.getString("name"));
-
         return interests.toString();
     }
 
@@ -342,5 +351,34 @@ public class UserService {
         pStatement.close();
         connection.close();
 
+    }
+
+    public static ArrayList<Integer> getActivities(int userID) throws SQLException {
+        ArrayList<Integer> allActivities = new ArrayList<>();
+
+        // Establish database connection.
+        Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
+
+        // Set query string. ? is replaces by User parameters.
+        String query = "SELECT activity_id FROM partisipant WHERE user_id=?;";
+        // Prepared statement from query String.
+
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        // Parameters replacing ? in query string.
+        pStatement.setInt(1, userID);
+
+        // Executes the query and saves response in resultSet.
+        ResultSet resultSet = pStatement.executeQuery();
+
+        while (resultSet.next()) {
+            allActivities.add(resultSet.getInt("activity_id"));
+        }
+        // Closes connection.
+
+        pStatement.close();
+        connection.close();
+
+
+        return allActivities;
     }
 }

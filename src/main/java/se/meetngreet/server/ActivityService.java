@@ -269,4 +269,33 @@ public class ActivityService {
         connection.close();
     }
 
+    public static ArrayList<Integer> getParticipants(int ActivityID) throws SQLException {
+        ArrayList<Integer> allParticipants = new ArrayList<>();
+
+        // Establish database connection.
+        Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
+
+        // Set query string. ? is replaces by User parameters.
+        String query = "SELECT user_id FROM partisipant WHERE activity_id=?;";
+        // Prepared statement from query String.
+
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        // Parameters replacing ? in query string.
+        pStatement.setInt(1, ActivityID);
+
+        // Executes the query and saves response in resultSet.
+        ResultSet resultSet = pStatement.executeQuery();
+
+        while (resultSet.next()) {
+            allParticipants.add(resultSet.getInt("user_id"));
+        }
+        // Closes connection.
+
+        pStatement.close();
+        connection.close();
+
+
+        return allParticipants;
+    }
+
 }

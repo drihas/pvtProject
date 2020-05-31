@@ -2,6 +2,7 @@ package se.meetngreet.server;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Random;
@@ -29,11 +30,35 @@ public class User {
     private String placeOfBirth;
     private String placeOfResidence;
     private String description;
+    private String interests;
 
 
+    // Constructor with interests.
+    public User(@JsonProperty("firstName") String firstName, @JsonProperty("lastName")String lastName,
+                @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("gender") String gender,
+                @JsonProperty("email") String email, @JsonProperty("relationshipStatus") String relationshipStatus,
+                @JsonProperty("occupation") String occupation, @JsonProperty("placeOfBirth") String placeOfBirth,
+                @JsonProperty("placeOfResidence") String placeOfResidence, @JsonProperty("description") String description,
+                @JsonProperty("interests") String interests) throws SQLException {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        //this.dateOfBirth = dateOfBirth;
+        this.gender = Gender.valueOf(gender.toUpperCase());
+        this.email = email;
+        this.relationshipStatus = RelationshipStatus.valueOf(relationshipStatus.toUpperCase());
+        this.occupation = Occupation.valueOf(occupation.toUpperCase());
+        this.placeOfBirth = placeOfBirth;
+        this.placeOfResidence = placeOfResidence;
+        this.description = description;
+        Random random = new Random();
+        this.userID = random.nextInt(1000 * random.nextInt(1000));
+        //createInterests(interests);
+        this.interests = interests;
+    }
 
     // Constructor. TODO: uppdatera denna!
-    public User(@JsonProperty("firstName") String firstName, @JsonProperty("lastName")String lastName,
+    /*public User(@JsonProperty("firstName") String firstName, @JsonProperty("lastName")String lastName,
                 @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("gender") String gender,
                 @JsonProperty("email") String email, @JsonProperty("relationshipStatus") String relationshipStatus,
                 @JsonProperty("occupation") String occupation, @JsonProperty("placeOfBirth") String placeOfBirth,
@@ -51,10 +76,15 @@ public class User {
         this.description = description;
         Random random = new Random();
         this.userID = random.nextInt(1000 * random.nextInt(1000));
+    }*/
 
 
+    private void createInterests(String interests) throws SQLException {
+        String[] list = interests.split(",");
+        for (String item : list) {
+            UserService.addInterest(getUserID(), new Interest(item));
+        }
     }
-
     //Getters and setters:
     public int getUserID() {
         return userID;
@@ -142,6 +172,10 @@ public class User {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getInterests() {
+        return interests;
     }
 
     // TODO
