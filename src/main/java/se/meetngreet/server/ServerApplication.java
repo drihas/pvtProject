@@ -21,10 +21,11 @@ public class ServerApplication extends SpringBootServletInitializer {
 
     // User
     @PutMapping("/user/add")
-    public void addUser(@RequestBody User user) throws SQLException {
+    public String addUser(@RequestBody User user) throws SQLException {
         //TODO: service.
         //users.add(new User(user.getFirstName(), user.getLastName(), user.getDateOfBirth()));
         UserService.newUser(user);
+        return "User created";
         //Todo: Ta emot interest. Kommaseparerad ista i Json verkar enkelt nog. Splitta, lägg in i array och iterera in i DB tillsammans med ID.
     }
 
