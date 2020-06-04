@@ -25,7 +25,7 @@ public class Activity {
     private String coordinates;
 
 
-    // Constructor.
+/*    // Constructor.
     public Activity(String name, String time, String description, String categoryOfActivity, int minAge, int maxAge, int groupSize, String allowedGender, String location, String coordinates) {
         this.name = name;
         this.time = time;
@@ -34,6 +34,22 @@ public class Activity {
         this.minAge = minAge;
         this.maxAge = maxAge;
         this.groupSize = groupSize;
+        this.allowedGender = Gender.valueOf(allowedGender);
+        this.location = location;
+        this.coordinates = coordinates;
+        Random random = new Random();
+        this.activityId = random.nextInt(1000 * random.nextInt(1000));
+    }*/
+
+    // Constructor.
+    public Activity(String name, String time, String description, String categoryOfActivity, String minAge, String maxAge, String groupSize, String allowedGender, String location, String coordinates) {
+        this.name = name;
+        this.time = time;
+        this.description = description;
+        this.categoryOfActivity = Activities.valueOf(categoryOfActivity);
+        this.minAge = Integer.parseInt(minAge);
+        this.maxAge = Integer.parseInt(maxAge);
+        this.groupSize = Integer.parseInt(groupSize);
         this.allowedGender = Gender.valueOf(allowedGender);
         this.location = location;
         this.coordinates = coordinates;
