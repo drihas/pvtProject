@@ -22,7 +22,7 @@ public class User {
     private int userID;
     private String firstName;
     private String lastName;
-    private String dateOfBirth; //TODO: Vad använda istället för Date?
+    private String dateOfBirth;
     private Gender gender;
     private String email;
     private RelationshipStatus relationshipStatus;
@@ -56,28 +56,6 @@ public class User {
         //createInterests(interests);
         this.interests = interests;
     }
-
-    // Constructor. TODO: uppdatera denna!
-    /*public User(@JsonProperty("firstName") String firstName, @JsonProperty("lastName")String lastName,
-                @JsonProperty("dateOfBirth") String dateOfBirth, @JsonProperty("gender") String gender,
-                @JsonProperty("email") String email, @JsonProperty("relationshipStatus") String relationshipStatus,
-                @JsonProperty("occupation") String occupation, @JsonProperty("placeOfBirth") String placeOfBirth,
-                @JsonProperty("placeOfResidence") String placeOfResidence, @JsonProperty("description") String description) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        //this.dateOfBirth = dateOfBirth;
-        this.gender = Gender.valueOf(gender.toUpperCase());
-        this.email = email;
-        this.relationshipStatus = RelationshipStatus.valueOf(relationshipStatus.toUpperCase());
-        this.occupation = Occupation.valueOf(occupation.toUpperCase());
-        this.placeOfBirth = placeOfBirth;
-        this.placeOfResidence = placeOfResidence;
-        this.description = description;
-        Random random = new Random();
-        this.userID = random.nextInt(1000 * random.nextInt(1000));
-    }*/
-
 
     private void createInterests(String interests) throws SQLException {
         String[] list = interests.split(",");

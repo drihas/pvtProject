@@ -13,8 +13,6 @@ import java.util.ArrayList;
 @RestController
 public class ServerApplication extends SpringBootServletInitializer {
 
-    //private ArrayList<User> users = new ArrayList<>();
-
     public static void main(String[] args) {
         SpringApplication.run(ServerApplication.class, args);
     }
@@ -22,27 +20,14 @@ public class ServerApplication extends SpringBootServletInitializer {
     // User
     @PutMapping("/user/add")
     public String addUser(@RequestBody User user) throws SQLException {
-        //TODO: service.
-        //users.add(new User(user.getFirstName(), user.getLastName(), user.getDateOfBirth()));
-        UserService.newUser(user);
+        UserService.newUser(user    );
         return "User created";
-        //Todo: Ta emot interest. Kommaseparerad ista i Json verkar enkelt nog. Splitta, lägg in i array och iterera in i DB tillsammans med ID.
     }
-
-    /*@PostMapping("/user/update2")
-    public void updateUser(@RequestParam(value = "id", defaultValue = "0") int id, @RequestBody UserPayload payload) {
-        if (id != 0) {
-            //UserService.updateUser(id, payload);
-        }
-        //TODO send bad request.
-    }*/
 
     @PutMapping("/user/update")
     public void updateUser(@RequestParam(value = "id", defaultValue = "0") int userID, @RequestBody UserPayload payload) throws SQLException {
 
         UserService.updateUser(userID, payload);
-
-        //TODO send bad request.
     }
 
     @GetMapping("/user/get")

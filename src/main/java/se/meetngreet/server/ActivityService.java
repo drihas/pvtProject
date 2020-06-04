@@ -143,7 +143,7 @@ public class ActivityService {
             location = resultSet.getString("location");
             coordinates = resultSet.getString("coordinates");
         }
-        Activity activity = new Activity(name, time, description, categoryOfActivity, minAge, maxAge, groupSize, allowedGender, location, coordinates);
+        Activity activity = new Activity(name, time, description, categoryOfActivity, String.valueOf(minAge), String.valueOf(maxAge), String.valueOf(groupSize), allowedGender, location, coordinates);
         activity.setActivityId(activityId);
 
         return activity;
@@ -179,7 +179,7 @@ public class ActivityService {
             allowedGender = resultSet.getString("allowed_gender");
             location = resultSet.getString("location");
             coordinates = resultSet.getString("coordinates");
-            Activity activity = new Activity(name, time, description, categoryOfActivity, minAge, maxAge, groupSize, allowedGender, location, coordinates);
+            Activity activity = new Activity(name, time, description, categoryOfActivity, String.valueOf(minAge), String.valueOf(maxAge), String.valueOf(groupSize), allowedGender, location, coordinates);
             activity.setActivityId(activityId);
 
             allActivities.add(activity);

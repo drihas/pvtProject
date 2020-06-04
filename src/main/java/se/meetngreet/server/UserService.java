@@ -17,9 +17,6 @@ import static java.sql.DriverManager.registerDriver;
 @Service
 public class UserService {
 
-    //private static ArrayList<User> users = new ArrayList<>();
-    //private HashSet<User> users2 = new HashSet<>();
-
     private static String databaseUrl = "jdbc:mysql://mysql.dsv.su.se:3306/malj8519";
     private static String databaseUsername = "malj8519";
     private static String databasePassword = "gie1Noa7eam8";
@@ -124,12 +121,9 @@ public class UserService {
         // Executes the query and saves number of rows effected in resultSet.
         int resultSet = pStatement.executeUpdate();
 
-
         // Closes connection.
         pStatement.close();
         connection.close();
-
-
     }
 
     public static User getUser(int userId) throws SQLException {
