@@ -4,8 +4,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.web.bind.annotation.*;
-
-import java.nio.file.attribute.AttributeView;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -26,7 +24,6 @@ public class ServerApplication extends SpringBootServletInitializer {
 
     @PutMapping("/user/update")
     public void updateUser(@RequestParam(value = "id", defaultValue = "0") int userID, @RequestBody UserPayload payload) throws SQLException {
-
         UserService.updateUser(userID, payload);
     }
 

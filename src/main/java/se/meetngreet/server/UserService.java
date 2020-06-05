@@ -7,12 +7,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Iterator;
 
 import static java.sql.DriverManager.*;
-import static java.sql.DriverManager.registerDriver;
 
 @Service
 public class UserService {
@@ -23,11 +19,6 @@ public class UserService {
 
     // Users
     public static void newUser(User user) throws SQLException {
-        //Date date = new Date(year, month, day);
-        /*users.add(new User(user.getFirstName(), user.getLastName(), user.getDateOfBirth(),
-                user.getGender().toString(), user.getEmail(), user.getRelationshipStatus().toString(), user.getOccupation().toString(),
-                user.getPlaceOfBirth(), user.getPlaceOfResidence(), user.getDescription()));
-*/
         // Add new user to DB.
         // Establish database connection.
         Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
@@ -52,9 +43,6 @@ public class UserService {
 
         // Executes the query and saves number of rows effected in resultSet.
         int resultSet = pStatement.executeUpdate();
-
-        // Adds interests.
-
 
         // Closes connection.
         pStatement.close();
@@ -140,22 +128,6 @@ public class UserService {
         // Executes the query and saves response in resultSet.
         ResultSet resultSet = pStatement.executeQuery();
 
-        /*int userID = 0;
-        String firstName = null, lastName = null, dateOfBirh = null, gender = null, email = null, relationshipStatus = null, occupation = null, placeOfBirth = null, placeOfResidence = null, description = null;
-        while (resultSet.next()) {
-            userID = resultSet.getInt("user_id");
-            firstName = resultSet.getString("first_name");
-            lastName = resultSet.getString("last_name");
-            dateOfBirh = resultSet.getString("date_of_birth");
-            gender = resultSet.getString("gender");
-            email = resultSet.getString("email");
-            relationshipStatus = resultSet.getString("relationship_status");
-            occupation = resultSet.getString("occupation");
-            placeOfBirth = resultSet.getString("place_of_birth");
-            placeOfResidence = resultSet.getString("place_of_residence");
-            description = resultSet.getString("description");
-        }*/
-
         User user = reassembleUser(resultSet);
 
 
@@ -163,13 +135,7 @@ public class UserService {
         pStatement.close();
         connection.close();
 
-        // Recreate user from database data.
-        /*User user = new User(firstName, lastName, dateOfBirh, gender, email, relationshipStatus, occupation, placeOfBirth, placeOfResidence, description);
-        user.setUserID(userID);*/
-
         // Returns the recreated user.
-
-
         return user;
     }
 
@@ -205,8 +171,6 @@ public class UserService {
         String query = "SELECT * FROM user;";
         // Prepared statement from query String.
         PreparedStatement pStatement = connection.prepareStatement(query);
-        // Parameters replacing ? in query string.
-
 
         // Executes the query and saves response in resultSet.
         ResultSet resultSet = pStatement.executeQuery();

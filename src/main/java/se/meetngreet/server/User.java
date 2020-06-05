@@ -3,8 +3,6 @@ package se.meetngreet.server;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Random;
 
 public class User {
@@ -43,7 +41,6 @@ public class User {
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
-        //this.dateOfBirth = dateOfBirth;
         this.gender = Gender.valueOf(gender.toUpperCase());
         this.email = email;
         this.relationshipStatus = RelationshipStatus.valueOf(relationshipStatus.toUpperCase());
@@ -53,7 +50,6 @@ public class User {
         this.description = description;
         Random random = new Random();
         this.userID = random.nextInt(1000 * random.nextInt(1000));
-        //createInterests(interests);
         this.interests = interests;
     }
 
@@ -154,31 +150,5 @@ public class User {
 
     public String getInterests() {
         return interests;
-    }
-
-    // TODO
-    public void createActivity(){
-        //TODO: Borde nog ligga någon annanstans mer relaterat till REST-API ...
-    }
-
-    public void changeInterest(){
-        // TODO:
-    }
-
-    public void terminateAccount(){
-        //TODO: kanske också borde ligga mer relaterat till REST-API.
-    }
-
-    public void listActivities(){
-        //TODO REST-API
-        //Omdöpt från klassdiagrammet.
-    }
-
-    public void attendActivity(){
-        // TODO
-    }
-
-    public void viewProfile(){
-        //TODO
     }
 }

@@ -65,14 +65,11 @@ public class ActivityService {
 
         // Establish database connection.
         Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
-
         // Set query string. ? is replaces by User parameters.
         String query = "UPDATE activity SET " + type + " = ? WHERE activity_id=?;";
         // Prepared statement from query String.
         PreparedStatement pStatement = connection.prepareStatement(query);
         // Parameters replacing ? in query string.
-        //pStatement.setString(1, payload.getType());
-
         pStatement.setString(1, payload.getData());
         pStatement.setInt(2, userID);
         // Executes the query and saves response in resultSet.
@@ -194,34 +191,16 @@ public class ActivityService {
     }
 
     public static void participateActivity(int userID, int activityID) throws SQLException {
-        // ArrayList to add temporary values to.
-        //ArrayList<String> inDB = new ArrayList<>();
-
         // Establish database connection.
         Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
-        //String query = "SELECT * FROM activity;";
         String queryParticipate = "INSERT INTO partisipant (user_id, activity_id) VALUES (?, ?);";
 
         // Prepared statement from query String.
-        //PreparedStatement pStatement = connection.prepareStatement(query);
-        //PreparedStatement pStatementAdd = connection.prepareStatement(queryAdd);
         PreparedStatement pStatementParticipate = connection.prepareStatement(queryParticipate);
 
         // Parameters replacing ? in query string.
-        //pStatementAdd.setString(1, interest.getName());
         pStatementParticipate.setInt(1, userID);
         pStatementParticipate.setInt(2, activityID);
-
-        // Executes the query and saves response in resultSet.
-        //ResultSet resultSet = pStatement.executeQuery();
-
-        // Adds result from query in inDB and adds name if it exists.
-        /*while (resultSet.next()) {
-            inDB.add(resultSet.getString("name"));
-        }*/
-        // If interest doesn't exist in inDB, add interest.
-        /*if (!inDB.contains(interest.getName()))   //!inDB.contains(interest)
-            pStatementAdd.executeUpdate();*/
 
         // Add userID and interest name to table has_interest to connect user with interest.
         pStatementParticipate.executeUpdate();
@@ -232,36 +211,18 @@ public class ActivityService {
     }
 
     public static void unParticipateActivity(int userID, int activityID) throws SQLException {
-        // ArrayList to add temporary values to.
-        //ArrayList<String> inDB = new ArrayList<>();
-
         // Establish database connection.
         Connection connection = getConnection(databaseUrl, databaseUsername, databasePassword);
         //String query = "SELECT * FROM activity;";
         String queryParticipate = "DELETE FROM partisipant WHERE user_id=? AND activity_id=?;";
 
         // Prepared statement from query String.
-        //PreparedStatement pStatement = connection.prepareStatement(query);
-        //PreparedStatement pStatementAdd = connection.prepareStatement(queryAdd);
         PreparedStatement pStatementParticipate = connection.prepareStatement(queryParticipate);
 
         // Parameters replacing ? in query string.
-        //pStatementAdd.setString(1, interest.getName());
         pStatementParticipate.setInt(1, userID);
         pStatementParticipate.setInt(2, activityID);
 
-        // Executes the query and saves response in resultSet.
-        //ResultSet resultSet = pStatement.executeQuery();
-
-        // Adds result from query in inDB and adds name if it exists.
-        /*while (resultSet.next()) {
-            inDB.add(resultSet.getString("name"));
-        }*/
-        // If interest doesn't exist in inDB, add interest.
-        /*if (!inDB.contains(interest.getName()))   //!inDB.contains(interest)
-            pStatementAdd.executeUpdate();*/
-
-        // Add userID and interest name to table has_interest to connect user with interest.
         pStatementParticipate.executeUpdate();
 
         // Closes connection.

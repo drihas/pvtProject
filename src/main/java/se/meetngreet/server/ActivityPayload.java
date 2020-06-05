@@ -21,8 +21,4 @@ public class ActivityPayload {
     public String getData() {
         return data;
     }
-
-    /*public int getId() {
-        return id;
-    }*/
 }

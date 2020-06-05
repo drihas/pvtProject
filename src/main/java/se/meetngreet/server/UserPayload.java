@@ -11,7 +11,6 @@ public class UserPayload {
     public UserPayload(@JsonProperty("type") String type, @JsonProperty("data") String data, @JsonProperty("id") int id){
         this.type = type;
         this.data = data;
-        //this.id = id;
     }
 
     public String getType() {
@@ -21,8 +20,4 @@ public class UserPayload {
     public String getData() {
         return data;
     }
-
-    /*public int getId() {
-        return id;
-    }*/
 }
