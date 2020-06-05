@@ -46,7 +46,7 @@ public class Activity {
         this.name = name;
         this.time = time;
         this.description = description;
-        this.categoryOfActivity = Activities.valueOf(categoryOfActivity);
+        this.categoryOfActivity = Activities.valueOf(categoryOfActivity.toUpperCase());
         this.minAge = Integer.parseInt(minAge);
         this.maxAge = Integer.parseInt(maxAge);
         this.groupSize = Integer.parseInt(groupSize);
